@@ -5,7 +5,7 @@ type Props = {};
 
 const Home = (props: Props) => {
   return (
-    <View>
+    <View style={styles.container}>
       <Text>Home</Text>
     </View>
   );
@@ -13,4 +13,11 @@ const Home = (props: Props) => {
 
 export default Home;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});

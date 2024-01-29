@@ -5,7 +5,7 @@ type Props = {};
 
 const AllExpense = (props: Props) => {
   return (
-    <View>
+    <View style={styles.container}>
       <Text>AllExpense</Text>
     </View>
   );
@@ -13,4 +13,11 @@ const AllExpense = (props: Props) => {
 
 export default AllExpense;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
