@@ -15,9 +15,9 @@ const Tab = createMaterialBottomTabNavigator();
 const ExpensesOverview = () => (
   <Tab.Navigator
     initialRouteName='Home'
-    activeColor='#f0edf6'
-    inactiveColor='#f0edf6'
-    barStyle={{ backgroundColor: '#694fad' }}
+    activeColor={GlobalStyles.colors.primary200}
+    inactiveColor={GlobalStyles.colors.primary200}
+    barStyle={{ backgroundColor: '#fff' }}
   >
     <Tab.Screen
       name='Overview'
@@ -28,7 +28,7 @@ const ExpensesOverview = () => (
             <Ionicons
               name={focused ? 'home' : 'home-outline'}
               size={24}
-              color={focused ? GlobalStyles.colors.primary200 : '#f0edf6'}
+              color={GlobalStyles.colors.primary200}
             />
           );
         },
@@ -43,7 +43,7 @@ const ExpensesOverview = () => (
             <Ionicons
               name={focused ? 'calendar' : 'calendar-outline'}
               size={24}
-              color={focused ? GlobalStyles.colors.primary200 : '#f0edf6'}
+              color={GlobalStyles.colors.primary200}
             />
           );
         },
