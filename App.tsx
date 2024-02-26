@@ -2,25 +2,33 @@ import { NavigationContainer } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { PaperProvider } from 'react-native-paper';
 import { createMaterialBottomTabNavigator } from 'react-native-paper/react-navigation';
-import { Home, AllExpense, AddExpense } from './src/screens';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { Home, AllExpense, ManageExpense } from './src/screens';
+import {
+  NativeStackScreenProps,
+  createNativeStackNavigator,
+} from '@react-navigation/native-stack';
 import { GlobalStyles } from './src/styles';
 import React from 'react';
+import { TabBarBtn } from './src/components';
+import { type RootStackParamList } from './src/lib/types/navigator';
+import ExpensesProvider from './src/lib/store/ExpenseContext';
 
 const Tab = createMaterialBottomTabNavigator();
 
-const ExpensesOverview = () => (
+const ExpensesOverview = ({
+  navigation,
+}: NativeStackScreenProps<RootStackParamList, 'Home'>) => (
   <Tab.Navigator
-    initialRouteName='Home'
+    initialRouteName='AllExpenses'
     activeColor={GlobalStyles.colors.primary200}
     inactiveColor={GlobalStyles.colors.primary200}
     barStyle={{ backgroundColor: '#fff' }}
   >
     <Tab.Screen
-      name='Overview'
+      name='AllExpenses'
       component={Home}
       options={{
         tabBarIcon({ color, focused }) {
@@ -34,9 +42,31 @@ const ExpensesOverview = () => (
         },
       }}
     />
+
+    {/* Plus button */}
+    <Tab.Screen
+      name='Add'
+      component={() => null} // Use a dummy component or null here
+      options={{
+        tabBarIcon: () => (
+          <TabBarBtn>
+            <Ionicons name='md-add' size={36} color='#fff' />
+          </TabBarBtn>
+        ),
+        tabBarLabel: '', // Hide label for the plus button
+      }}
+      listeners={() => ({
+        tabPress(e) {
+          e.preventDefault();
+          console.log('tabPress');
+          navigation.navigate('Manage'); // Navigate to the AddExpense screen
+        },
+      })}
+    />
+
     <Tab.Screen
       name='Expenses'
-      component={AllExpense}
+      component={() => <AllExpense navigation={navigation} />}
       options={{
         tabBarIcon({ color, focused }) {
           return (
@@ -58,19 +88,28 @@ export default function App() {
     <>
       <NavigationContainer>
         <PaperProvider>
-          <Stack.Navigator
-            screenOptions={{
-              headerShown: false,
-              headerStyle: {
-                backgroundColor: GlobalStyles.colors.primary200,
-              },
-
-              headerTintColor: '#fff',
-            }}
-          >
-            <Stack.Screen name='ExpensesScreen' component={ExpensesOverview} />
-            <Stack.Screen name='ManageScreen' component={AddExpense} />
-          </Stack.Navigator>
+          <ExpensesProvider>
+            <Stack.Navigator
+              screenOptions={{
+                headerShown: false,
+              }}
+            >
+              <Stack.Screen name='Home' component={ExpensesOverview} />
+              <Stack.Screen
+                name='Manage'
+                options={{
+                  presentation: 'modal',
+                  headerBackTitle: 'Back',
+                  headerShown: true,
+                  headerStyle: {
+                    backgroundColor: GlobalStyles.colors.primary200,
+                  },
+                  headerTintColor: '#fff',
+                }}
+                component={ManageExpense}
+              />
+            </Stack.Navigator>
+          </ExpensesProvider>
         </PaperProvider>
       </NavigationContainer>
       <StatusBar style='auto' />

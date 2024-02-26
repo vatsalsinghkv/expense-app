@@ -1,5 +1,5 @@
-import AddExpense from './AddExpense';
+import ManageExpense from './ManageExpense';
 import AllExpense from './AllExpense';
 import Home from './Home';
 
-export { AddExpense, AllExpense, Home };
+export { ManageExpense, AllExpense, Home };

@@ -1,19 +1,25 @@
-import { StyleSheet, Text, View } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  TouchableOpacityProps,
+  View,
+} from 'react-native';
 import React from 'react';
 import { timeSince } from '../lib/utils/helper';
-import { ExpenseType } from '../lib/constant/expenses';
+import { Expense } from '../lib/types/expense';
 
-type Props = {};
+type Props = TouchableOpacityProps & Expense;
 
-const ExpenseItem = ({ description, amount, date }: ExpenseType) => {
+const ExpenseItem = ({ description, amount, date, ...props }: Props) => {
   return (
-    <View style={styles.expense}>
+    <TouchableOpacity style={styles.expense} {...props}>
       <Text style={styles.expenseText}>{description}</Text>
       <View style={{ gap: 5 }}>
         <Text style={styles.expensePrice}>₹{amount.toFixed(2)}</Text>
         <Text style={styles.expenseDate}>{timeSince(date)}</Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

@@ -1,24 +1,33 @@
 import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
 import React from 'react';
-import { EXPENSES } from '../lib/constant/expenses';
 import { ExpenseItem, ExpenseSummary } from '../components';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import {
+  NativeStackNavigationProp,
+  NativeStackScreenProps,
+} from '@react-navigation/native-stack';
+import { RootStackParamList } from '../lib/types/navigator';
+import { useExpenses } from '../lib/hooks/use-expense';
 
-type Props = {};
+type Props = {
+  navigation: NativeStackNavigationProp<RootStackParamList, 'Home', undefined>;
+};
 
-const AllExpense = (props: Props) => {
-  const totalExpense = EXPENSES.reduce(
+const AllExpense = ({ navigation }: Props) => {
+  const { expenses } = useExpenses();
+
+  const totalExpense = expenses.reduce(
     (acc, currExp) => acc + currExp.amount,
     0
   );
 
-  const minDate = EXPENSES.reduce(
+  const minDate = expenses.reduce(
     (minExp, currExp) => (currExp.date < minExp.date ? currExp : minExp),
-    EXPENSES[0]
+    expenses[0]
   );
-  const maxDate = EXPENSES.reduce(
+  const maxDate = expenses.reduce(
     (maxExp, currExp) => (currExp.date > maxExp.date ? currExp : maxExp),
-    EXPENSES[0]
+    expenses[0]
   );
 
   return (
@@ -29,8 +38,15 @@ const AllExpense = (props: Props) => {
         endDate={maxDate.date}
       />
       <FlatList
-        data={EXPENSES}
-        renderItem={({ item }) => <ExpenseItem {...item} />}
+        data={expenses}
+        renderItem={({ item }) => (
+          <ExpenseItem
+            {...item}
+            onPress={() => {
+              navigation.navigate('Manage', { id: item.id });
+            }}
+          />
+        )}
         keyExtractor={(item) => item.id}
       />
     </SafeAreaView>
