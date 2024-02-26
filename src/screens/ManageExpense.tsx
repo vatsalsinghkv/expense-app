@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, SafeAreaView, Text } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../lib/types/navigator';
 
 import { Button, Input } from '../components/ui';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { GlobalStyles } from '../styles';
 
-import { Expense } from '../lib/types/expense';
 import { useExpenses } from '../lib/hooks/use-expense';
+import { RootStackParamList } from '../lib/utils/types';
+import { Expense } from '../lib/models/expense';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Manage'>;
 
@@ -29,21 +29,28 @@ const ManageExpense = ({ route, navigation }: Props) => {
   const [date, setDate] = useState(expense?.date ?? new Date());
 
   const handleSaveExpense = () => {
-    const newExpense: Expense = {
-      id: expense?.id ?? Math.random().toString(),
+    const newExpense = new Expense(
+      expense?.id ?? Math.random().toString(),
       description,
-      amount: parseFloat(amount),
-      date,
-    };
+      parseFloat(amount),
+      date
+    );
 
     if (isEditing && expense) {
       edit(newExpense);
-      return navigation.goBack();
+    } else {
+      add(newExpense);
     }
 
-    add(newExpense);
     console.log('New expense:', newExpense);
     navigation.goBack();
+  };
+
+  const handleDeleteExpense = () => {
+    if (expense) {
+      remove(expense.id);
+      navigation.goBack();
+    }
   };
 
   const onChangeDate = (_: any, selectedDate: Date | undefined) => {
@@ -55,12 +62,7 @@ const ManageExpense = ({ route, navigation }: Props) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View
-        style={{
-          margin: 20,
-          gap: 16,
-        }}
-      >
+      <View style={{ margin: 20, gap: 16 }}>
         <Text>{expense?.id}</Text>
         <Input
           placeholder='Price'
@@ -101,14 +103,9 @@ const ManageExpense = ({ route, navigation }: Props) => {
         />
         {isEditing && (
           <Button
-            style={{
-              backgroundColor: GlobalStyles.colors.error100,
-            }}
+            style={{ backgroundColor: GlobalStyles.colors.error100 }}
             title='Delete'
-            onPress={() => {
-              remove(expense.id);
-              navigation.goBack();
-            }}
+            onPress={handleDeleteExpense}
           />
         )}
       </View>

@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import React from 'react';
 import { timeSince } from '../lib/utils/helper';
-import { Expense } from '../lib/types/expense';
+import { Expense } from '../lib/models/expense';
 
 type Props = TouchableOpacityProps & Expense;
 

@@ -1,33 +1,14 @@
 import React, { createContext, useReducer } from 'react';
-import { Expense } from '../types/expense';
+
 import expenseReducer, { ExpenseActions } from './expense-reducer';
+import { Expense } from '../models/expense';
 
 // Initial expenses data
-export const EXPENSES: Expense[] = [
-  {
-    id: 'e1',
-    description: "Laptop's battery fixed",
-    amount: 500,
-    date: new Date('2024-01-26'),
-  },
-  {
-    id: 'e2',
-    description: "Flat's security",
-    amount: 500,
-    date: new Date('2024-01-28'),
-  },
-  {
-    id: 'e3',
-    description: 'A Cycle',
-    amount: 5000,
-    date: new Date('2024-02-03'),
-  },
-  {
-    id: 'e4',
-    description: "Flat's rent",
-    amount: 2750,
-    date: new Date('2024-02-01'),
-  },
+const EXPENSES: Expense[] = [
+  new Expense('e1', "Laptop's battery fixed", 500, new Date('2024-01-26')),
+  new Expense('e2', "Flat's security", 500, new Date('2024-01-28')),
+  new Expense('e3', 'A Cycle', 5000, new Date('2024-02-03')),
+  new Expense('e4', "Flat's rent", 2750, new Date('2024-02-01')),
 ];
 
 // Create context with initial state

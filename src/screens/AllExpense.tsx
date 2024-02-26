@@ -6,8 +6,9 @@ import {
   NativeStackNavigationProp,
   NativeStackScreenProps,
 } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../lib/types/navigator';
+
 import { useExpenses } from '../lib/hooks/use-expense';
+import { RootStackParamList } from '../lib/utils/types';
 
 type Props = {
   navigation: NativeStackNavigationProp<RootStackParamList, 'Home', undefined>;
