@@ -17,4 +17,12 @@ export const GlobalStyles = {
     text: '#334155',
     text2: '#475569',
   },
+  gradients: {
+    primary: ['#805ad5', '#a78bfa', '#bbdefb'], // Purplish gradient for primary
+    secondary: ['#90caf9', '#64b5f6', '#42a5f5'], // Sky blue or bluish gradient for secondary
+    destructive: ['#fc8181', '#f56565', '#e53e3e'], // Default gradient for destructive
+    success: ['#64e291', '#5dd6a4', '#52c9b1'], // Default gradient for success
+    warning: ['#f6e05e', '#f6d165', '#f3cb76'], // Default gradient for warning
+    default: ['#f87171', '#c084fc', '#60a5fa'], // Default gradient for primary
+  },
 };

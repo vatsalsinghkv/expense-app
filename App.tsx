@@ -13,8 +13,9 @@ import {
 import { GlobalStyles } from './src/styles';
 import React from 'react';
 import { TabBarBtn } from './src/components';
-import { type RootStackParamList } from './src/lib/types/navigator';
+
 import ExpensesProvider from './src/lib/store/ExpenseContext';
+import { RootStackParamList } from './src/lib/utils/types';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -31,6 +32,7 @@ const ExpensesOverview = ({
       name='AllExpenses'
       component={Home}
       options={{
+        tabBarLabel: 'Home',
         tabBarIcon({ color, focused }) {
           return (
             <Ionicons

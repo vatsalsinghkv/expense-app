@@ -1,3 +1,5 @@
+// Button.tsx
+
 import React from 'react';
 import {
   TouchableOpacity,
@@ -6,12 +8,15 @@ import {
   ViewStyle,
   TextStyle,
 } from 'react-native';
+
 import { GlobalStyles } from '../../styles';
+import { LinearGradient } from 'expo-linear-gradient';
 
 interface ButtonProps {
   title: string;
   onPress: () => void;
   variant?: 'solid' | 'outline';
+  color?: keyof typeof GlobalStyles.gradients; // Updated color prop
   styleText?: TextStyle;
   style?: ViewStyle;
 }
@@ -20,6 +25,7 @@ const Button: React.FC<ButtonProps> = ({
   title,
   onPress,
   variant = 'solid',
+  color = 'primary', // Default color is primary
   styleText,
   style,
 }) => {
@@ -29,11 +35,15 @@ const Button: React.FC<ButtonProps> = ({
     variant === 'solid' ? styles.solidButtonText : styles.outlineButtonText;
 
   return (
-    <TouchableOpacity
-      style={[styles.button, buttonStyle, style]}
-      onPress={onPress}
-    >
-      <Text style={[styles.buttonText, textStyle, styleText]}>{title}</Text>
+    <TouchableOpacity style={[styles.button, style]} onPress={onPress}>
+      <LinearGradient
+        colors={GlobalStyles.gradients[color]}
+        style={[styles.gradient, buttonStyle]}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+      >
+        <Text style={[styles.buttonText, textStyle, styleText]}>{title}</Text>
+      </LinearGradient>
     </TouchableOpacity>
   );
 };
@@ -41,18 +51,21 @@ const Button: React.FC<ButtonProps> = ({
 const styles = StyleSheet.create({
   button: {
     borderRadius: 10,
-    paddingVertical: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
     minWidth: 120,
     flex: 1,
     elevation: 2, // Android elevation for shadow
+    overflow: 'hidden', // This ensures the LinearGradient is clipped to the borderRadius
+  },
+  gradient: {
+    borderRadius: 10,
+    paddingVertical: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   solidButton: {
-    backgroundColor: GlobalStyles.colors.primary400, // Blue color for solid button
+    // No specific style needed for solidButton as the gradient handles the background
   },
   outlineButton: {
-    backgroundColor: 'transparent',
     borderWidth: 1,
     borderColor: GlobalStyles.colors.primary400, // Blue color for outline button
   },

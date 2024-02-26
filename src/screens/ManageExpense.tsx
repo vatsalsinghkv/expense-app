@@ -103,7 +103,7 @@ const ManageExpense = ({ route, navigation }: Props) => {
         />
         {isEditing && (
           <Button
-            style={{ backgroundColor: GlobalStyles.colors.error100 }}
+            color='destructive'
             title='Delete'
             onPress={handleDeleteExpense}
           />

@@ -1,4 +1,4 @@
-// src/components/TabBarBtn.tsx
+// TabBarBtn.tsx
 
 import React, { FC } from 'react';
 import {
@@ -7,24 +7,37 @@ import {
   Text,
   StyleProp,
   ViewStyle,
-  TouchableOpacityProps,
 } from 'react-native';
-import { GlobalStyles } from '../styles';
 
-interface TabBarBtnProps extends TouchableOpacityProps {
+import { GlobalStyles } from '../styles';
+import { LinearGradient } from 'expo-linear-gradient';
+
+interface TabBarBtnProps {
   children: React.ReactNode;
+  color?: keyof typeof GlobalStyles.gradients;
   style?: StyleProp<ViewStyle>;
 }
 
-const TabBarBtn: FC<TabBarBtnProps> = ({ children, style, ...props }) => (
-  <TouchableOpacity style={[styles.container, style]} {...props}>
-    <Text style={styles.text}>{children}</Text>
-  </TouchableOpacity>
+const TabBarBtn: FC<TabBarBtnProps> = ({
+  children,
+  style,
+  color = 'default',
+  ...props
+}) => (
+  <LinearGradient
+    colors={GlobalStyles.gradients[color]}
+    style={[styles.container, style]}
+    start={{ x: 0, y: 0 }}
+    end={{ x: 1, y: 1 }}
+  >
+    <TouchableOpacity style={styles.touchable} {...props}>
+      <Text style={styles.text}>{children}</Text>
+    </TouchableOpacity>
+  </LinearGradient>
 );
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: GlobalStyles.colors.primary200, // Your desired background color
     borderRadius: 25, // Adjust the border radius as needed
     width: 50, // Adjust width and height as needed
     height: 50,
@@ -32,6 +45,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     bottom: 5,
     elevation: 5, // Add elevation for a shadow effect
+  },
+  touchable: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   text: {
     color: 'white', // Your desired text color
