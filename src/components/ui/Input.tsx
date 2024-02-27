@@ -8,15 +8,16 @@ import {
   TextInputProps,
   ViewStyle,
 } from 'react-native';
-import { Ionicons } from '@expo/vector-icons'; // Import Ionicons from Expo vector icons
+import { MaterialIcons } from '@expo/vector-icons'; // Import Ionicons from Expo vector icons
 import { GlobalStyles } from '../../styles';
+import Label from './Label';
 
 // Define a type for valid Ionicons icon names
-type IoniconsName = keyof typeof Ionicons.glyphMap;
+type IconsName = keyof typeof MaterialIcons.glyphMap;
 
 interface InputProps extends TextInputProps {
   label?: string;
-  icon?: IoniconsName; // Update icon prop to accept IoniconsName type
+  icon?: IconsName; // Update icon prop to accept IoniconsName type
   error?: string;
   labelStyle?: TextStyle;
   inputStyle?: TextStyle;
@@ -34,11 +35,11 @@ const Input: React.FC<InputProps> = ({
 }) => {
   return (
     <View style={[styles.container, containerStyle]}>
-      {label && <Text style={[styles.label, labelStyle]}>{label}</Text>}
+      {label && <Label style={labelStyle}>{label}</Label>}
       <View style={styles.inputContainer}>
         {icon && (
-          <Ionicons
-            color={GlobalStyles.colors.text2}
+          <MaterialIcons
+            color='#64748b'
             name={icon} // Use name instead of icon to specify the icon name
             size={24}
           />
@@ -57,11 +58,7 @@ const styles = StyleSheet.create({
   container: {
     // marginBottom: 16,
   },
-  label: {
-    marginBottom: 4,
-    fontSize: 16,
-    color: GlobalStyles.colors.text2,
-  },
+
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',

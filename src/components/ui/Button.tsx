@@ -1,5 +1,3 @@
-// Button.tsx
-
 import React from 'react';
 import {
   TouchableOpacity,
@@ -35,15 +33,22 @@ const Button: React.FC<ButtonProps> = ({
     variant === 'solid' ? styles.solidButtonText : styles.outlineButtonText;
 
   return (
-    <TouchableOpacity style={[styles.button, style]} onPress={onPress}>
-      <LinearGradient
-        colors={GlobalStyles.gradients[color]}
-        style={[styles.gradient, buttonStyle]}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 1 }}
-      >
+    <TouchableOpacity
+      style={[styles.button, buttonStyle, style]}
+      onPress={onPress}
+    >
+      {variant === 'solid' ? (
+        <LinearGradient
+          colors={GlobalStyles.gradients[color]}
+          style={[styles.gradient]}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 1 }}
+        >
+          <Text style={[styles.buttonText, textStyle, styleText]}>{title}</Text>
+        </LinearGradient>
+      ) : (
         <Text style={[styles.buttonText, textStyle, styleText]}>{title}</Text>
-      </LinearGradient>
+      )}
     </TouchableOpacity>
   );
 };
@@ -68,10 +73,11 @@ const styles = StyleSheet.create({
   outlineButton: {
     borderWidth: 1,
     borderColor: GlobalStyles.colors.primary400, // Blue color for outline button
+    alignItems: 'center', // Center text horizontally
+    justifyContent: 'center', // Center text vertically
   },
   buttonText: {
     fontSize: 18,
-    color: '#fff', // White color for button text
     fontWeight: 'bold',
   },
   solidButtonText: {

@@ -101,12 +101,13 @@ export default function App() {
                 name='Manage'
                 options={{
                   presentation: 'modal',
-                  headerBackTitle: 'Back',
+                  headerBackTitle: 'Cancel',
                   headerShown: true,
+                  // headerTitle: '',
                   headerStyle: {
-                    backgroundColor: GlobalStyles.colors.primary200,
+                    backgroundColor: GlobalStyles.colors.bg,
                   },
-                  headerTintColor: '#fff',
+                  headerTintColor: GlobalStyles.colors.text2,
                 }}
                 component={ManageExpense}
               />

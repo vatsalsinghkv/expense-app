@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, SafeAreaView, Text } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
-import { Button, Input } from '../components/ui';
+import { Button, Input, Label } from '../components/ui';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { GlobalStyles } from '../styles';
+import { MaterialIcons } from '@expo/vector-icons'; // Import Ionicons from Expo vector icons
 
 import { useExpenses } from '../lib/hooks/use-expense';
 import { RootStackParamList } from '../lib/utils/types';
 import { Expense } from '../lib/models/expense';
+import { GlobalStyles } from '../styles';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Manage'>;
 
@@ -20,7 +21,7 @@ const ManageExpense = ({ route, navigation }: Props) => {
 
   useEffect(() => {
     navigation.setOptions({
-      title: isEditing ? 'Edit Expense' : 'Add Expense',
+      title: isEditing ? expense.description : 'New Expense',
     });
   }, [isEditing]);
 
@@ -63,31 +64,34 @@ const ManageExpense = ({ route, navigation }: Props) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={{ margin: 20, gap: 16 }}>
-        <Text>{expense?.id}</Text>
+        <Text style={styles.title}>{isEditing ? 'edit' : 'add'} expense</Text>
+
         <Input
           placeholder='Price'
-          icon='cash'
+          icon='attach-money'
           keyboardType='numeric'
           value={amount}
           onChangeText={setAmount}
         />
 
-        <DateTimePicker
-          testID='dateTimePicker'
-          style={{ display: 'flex', width: '100%' }}
-          value={date}
-          mode='date'
-          is24Hour={true}
-          display='default'
-          onChange={onChangeDate}
-        />
-
         <Input
           placeholder='Description'
-          icon='md-create'
+          icon='notes'
           value={description}
           onChangeText={setDescription}
         />
+
+        <View style={styles.inputContainer}>
+          <MaterialIcons color='#64748b' name='date-range' size={24} />
+          <DateTimePicker
+            testID='dateTimePicker'
+            value={date}
+            mode='date'
+            is24Hour={true}
+            display='default'
+            onChange={onChangeDate}
+          />
+        </View>
       </View>
       <View
         style={{
@@ -98,6 +102,7 @@ const ManageExpense = ({ route, navigation }: Props) => {
         }}
       >
         <Button
+          color='default'
           title={isEditing ? 'Save' : 'Add'}
           onPress={handleSaveExpense}
         />
@@ -119,5 +124,24 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'space-between',
+  },
+  title: {
+    fontSize: 22,
+    textAlign: 'center',
+    fontWeight: '600',
+    textTransform: 'capitalize',
+    color: '#64748b',
+    marginVertical: 10,
+    marginTop: 30,
+  },
+  inputContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: GlobalStyles.colors.bg,
+    backgroundColor: '#fff',
+    borderRadius: 12,
+    paddingHorizontal: 20,
+    paddingVertical: 12,
   },
 });
