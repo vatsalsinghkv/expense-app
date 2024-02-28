@@ -1,13 +1,7 @@
 // TabBarBtn.tsx
 
 import React, { FC } from 'react';
-import {
-  TouchableOpacity,
-  StyleSheet,
-  Text,
-  StyleProp,
-  ViewStyle,
-} from 'react-native';
+import { TouchableOpacity, StyleSheet, Text, StyleProp, ViewStyle } from 'react-native';
 
 import { GlobalStyles } from '../styles';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -18,12 +12,7 @@ interface TabBarBtnProps {
   style?: StyleProp<ViewStyle>;
 }
 
-const TabBarBtn: FC<TabBarBtnProps> = ({
-  children,
-  style,
-  color = 'default',
-  ...props
-}) => (
+const TabBarBtn: FC<TabBarBtnProps> = ({ children, style, color = 'default', ...props }) => (
   <LinearGradient
     colors={GlobalStyles.gradients[color]}
     style={[styles.container, style]}

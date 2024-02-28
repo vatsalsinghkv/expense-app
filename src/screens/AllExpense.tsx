@@ -2,10 +2,7 @@ import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import { ExpenseItem, ExpenseSummary } from '../components';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import {
-  NativeStackNavigationProp,
-  NativeStackScreenProps,
-} from '@react-navigation/native-stack';
+import { NativeStackNavigationProp, NativeStackScreenProps } from '@react-navigation/native-stack';
 
 import { useExpenses } from '../lib/hooks/use-expense';
 import { RootStackParamList } from '../lib/utils/types';
@@ -17,27 +14,20 @@ type Props = {
 const AllExpense = ({ navigation }: Props) => {
   const { expenses } = useExpenses();
 
-  const totalExpense = expenses.reduce(
-    (acc, currExp) => acc + currExp.amount,
-    0
-  );
+  const totalExpense = expenses.reduce((acc, currExp) => acc + currExp.amount, 0);
 
   const minDate = expenses.reduce(
     (minExp, currExp) => (currExp.date < minExp.date ? currExp : minExp),
-    expenses[0]
+    expenses[0],
   );
   const maxDate = expenses.reduce(
     (maxExp, currExp) => (currExp.date > maxExp.date ? currExp : maxExp),
-    expenses[0]
+    expenses[0],
   );
 
   return (
     <SafeAreaView style={styles.container}>
-      <ExpenseSummary
-        total={totalExpense}
-        startDate={minDate.date}
-        endDate={maxDate.date}
-      />
+      <ExpenseSummary total={totalExpense} startDate={minDate.date} endDate={maxDate.date} />
       <FlatList
         data={expenses}
         renderItem={({ item }) => (

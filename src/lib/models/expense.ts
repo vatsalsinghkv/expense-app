@@ -3,6 +3,6 @@ export class Expense {
     public id: string,
     public description: string,
     public amount: number,
-    public date: Date
+    public date: Date,
   ) {}
 }

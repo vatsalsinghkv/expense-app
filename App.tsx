@@ -6,10 +6,7 @@ import { StyleSheet, View } from 'react-native';
 import { PaperProvider } from 'react-native-paper';
 import { createMaterialBottomTabNavigator } from 'react-native-paper/react-navigation';
 import { Home, AllExpense, ManageExpense } from './src/screens';
-import {
-  NativeStackScreenProps,
-  createNativeStackNavigator,
-} from '@react-navigation/native-stack';
+import { NativeStackScreenProps, createNativeStackNavigator } from '@react-navigation/native-stack';
 import { GlobalStyles } from './src/styles';
 import React from 'react';
 import { TabBarBtn } from './src/components';
@@ -19,17 +16,15 @@ import { RootStackParamList } from './src/lib/utils/types';
 
 const Tab = createMaterialBottomTabNavigator();
 
-const ExpensesOverview = ({
-  navigation,
-}: NativeStackScreenProps<RootStackParamList, 'Home'>) => (
+const ExpensesOverview = ({ navigation }: NativeStackScreenProps<RootStackParamList, 'Home'>) => (
   <Tab.Navigator
-    initialRouteName='AllExpenses'
+    initialRouteName="AllExpenses"
     activeColor={GlobalStyles.colors.primary200}
     inactiveColor={GlobalStyles.colors.primary200}
     barStyle={{ backgroundColor: '#fff' }}
   >
     <Tab.Screen
-      name='AllExpenses'
+      name="AllExpenses"
       component={Home}
       options={{
         tabBarLabel: 'Home',
@@ -47,12 +42,12 @@ const ExpensesOverview = ({
 
     {/* Plus button */}
     <Tab.Screen
-      name='Add'
+      name="Add"
       component={() => null} // Use a dummy component or null here
       options={{
         tabBarIcon: () => (
           <TabBarBtn>
-            <Ionicons name='md-add' size={36} color='#fff' />
+            <Ionicons name="md-add" size={36} color="#fff" />
           </TabBarBtn>
         ),
         tabBarLabel: '', // Hide label for the plus button
@@ -67,7 +62,7 @@ const ExpensesOverview = ({
     />
 
     <Tab.Screen
-      name='Expenses'
+      name="Expenses"
       component={() => <AllExpense navigation={navigation} />}
       options={{
         tabBarIcon({ color, focused }) {
@@ -96,9 +91,9 @@ export default function App() {
                 headerShown: false,
               }}
             >
-              <Stack.Screen name='Home' component={ExpensesOverview} />
+              <Stack.Screen name="Home" component={ExpensesOverview} />
               <Stack.Screen
-                name='Manage'
+                name="Manage"
                 options={{
                   presentation: 'modal',
                   headerBackTitle: 'Cancel',
@@ -115,7 +110,7 @@ export default function App() {
           </ExpensesProvider>
         </PaperProvider>
       </NavigationContainer>
-      <StatusBar style='auto' />
+      <StatusBar style="auto" />
     </>
   );
 }

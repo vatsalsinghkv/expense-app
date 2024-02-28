@@ -34,7 +34,7 @@ const ManageExpense = ({ route, navigation }: Props) => {
       expense?.id ?? Math.random().toString(),
       description,
       parseFloat(amount),
-      date
+      date,
     );
 
     if (isEditing && expense) {
@@ -67,28 +67,28 @@ const ManageExpense = ({ route, navigation }: Props) => {
         <Text style={styles.title}>{isEditing ? 'edit' : 'add'} expense</Text>
 
         <Input
-          placeholder='Price'
-          icon='attach-money'
-          keyboardType='numeric'
+          placeholder="Price"
+          icon="attach-money"
+          keyboardType="numeric"
           value={amount}
           onChangeText={setAmount}
         />
 
         <Input
-          placeholder='Description'
-          icon='notes'
+          placeholder="Description"
+          icon="notes"
           value={description}
           onChangeText={setDescription}
         />
 
         <View style={styles.inputContainer}>
-          <MaterialIcons color='#64748b' name='date-range' size={24} />
+          <MaterialIcons color="#64748b" name="date-range" size={24} />
           <DateTimePicker
-            testID='dateTimePicker'
+            testID="dateTimePicker"
             value={date}
-            mode='date'
+            mode="date"
             is24Hour={true}
-            display='default'
+            display="default"
             onChange={onChangeDate}
           />
         </View>
@@ -101,18 +101,8 @@ const ManageExpense = ({ route, navigation }: Props) => {
           justifyContent: 'space-between',
         }}
       >
-        <Button
-          color='default'
-          title={isEditing ? 'Save' : 'Add'}
-          onPress={handleSaveExpense}
-        />
-        {isEditing && (
-          <Button
-            color='destructive'
-            title='Delete'
-            onPress={handleDeleteExpense}
-          />
-        )}
+        <Button color="default" title={isEditing ? 'Save' : 'Add'} onPress={handleSaveExpense} />
+        {isEditing && <Button color="destructive" title="Delete" onPress={handleDeleteExpense} />}
       </View>
     </SafeAreaView>
   );

@@ -39,15 +39,12 @@ const Input: React.FC<InputProps> = ({
       <View style={styles.inputContainer}>
         {icon && (
           <MaterialIcons
-            color='#64748b'
+            color="#64748b"
             name={icon} // Use name instead of icon to specify the icon name
             size={24}
           />
         )}
-        <TextInput
-          style={[styles.input, inputStyle, { paddingLeft: 12 }]}
-          {...rest}
-        />
+        <TextInput style={[styles.input, inputStyle, { paddingLeft: 12 }]} {...rest} />
       </View>
       {error && <Text style={styles.error}>{error}</Text>}
     </View>

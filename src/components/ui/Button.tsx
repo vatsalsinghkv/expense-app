@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  TouchableOpacity,
-  Text,
-  StyleSheet,
-  ViewStyle,
-  TextStyle,
-} from 'react-native';
+import { TouchableOpacity, Text, StyleSheet, ViewStyle, TextStyle } from 'react-native';
 
 import { GlobalStyles } from '../../styles';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -27,16 +21,12 @@ const Button: React.FC<ButtonProps> = ({
   styleText,
   style,
 }) => {
-  const buttonStyle: ViewStyle =
-    variant === 'solid' ? styles.solidButton : styles.outlineButton;
+  const buttonStyle: ViewStyle = variant === 'solid' ? styles.solidButton : styles.outlineButton;
   const textStyle: TextStyle =
     variant === 'solid' ? styles.solidButtonText : styles.outlineButtonText;
 
   return (
-    <TouchableOpacity
-      style={[styles.button, buttonStyle, style]}
-      onPress={onPress}
-    >
+    <TouchableOpacity style={[styles.button, buttonStyle, style]} onPress={onPress}>
       {variant === 'solid' ? (
         <LinearGradient
           colors={GlobalStyles.gradients[color]}

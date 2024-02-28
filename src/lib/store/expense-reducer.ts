@@ -14,19 +14,14 @@ type ExpensesAction =
   | { type: Actions.REMOVE; payload: string };
 
 // Define reducer function
-const expenseReducer = (
-  expenses: Expense[],
-  action: ExpensesAction
-): Expense[] => {
+const expenseReducer = (expenses: Expense[], action: ExpensesAction): Expense[] => {
   switch (action.type) {
     case Actions.ADD:
       return [action.payload, ...expenses];
 
     case Actions.EDIT:
       return expenses.map((expense) =>
-        expense.id === action.payload.id
-          ? { ...expense, ...action.payload }
-          : expense
+        expense.id === action.payload.id ? { ...expense, ...action.payload } : expense,
       );
 
     case Actions.REMOVE:
